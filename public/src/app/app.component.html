@@ -1,0 +1,57 @@
+<div>
+  <div class="bg-primary navbar justify-content-between text-white">
+    <h4 class="display-4">Coin Town</h4>
+    <div>
+      <h4 class="d-inline-block">Currency </h4>
+      <select (click)="getData()" [(ngModel)]="dataCurrency" name="dataCurrency" class="form-control d-inline-block">
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+        <option value="EUR">EUR</option>
+        <option value="Others">Others</option>
+      </select>   
+    </div>
+  </div>
+
+  <div *ngIf="currency && !allCurrency" class="container col-6 bg-secondary mt-5 rounded">
+    <h3>Available on Coin Town</h3>
+    <table class="table text-light">
+      <tr>
+        <th>NAME</th>
+        <th>Bitcoin {{ currency.buyprice.data.base}}</th>
+      </tr>
+      <tr>
+        <th>BUY PRICE</th>
+        <th *ngIf="dataCurrency == 'USD'">${{ currency.buyprice.data.amount}}</th>
+        <th *ngIf="dataCurrency == 'GBP'">&pound;{{ currency.buyprice.data.amount}}</th>
+        <th *ngIf="dataCurrency == 'EUR'">&euro;{{ currency.buyprice.data.amount}}</th>
+        <th *ngIf="dataCurrency != 'EUR' && dataCurrency != 'USD' && dataCurrency != 'GBP'">{{ currency.buyprice.data.amount }}</th>
+      </tr>
+      <tr>
+        <th>SELL PRICE</th>
+        <th *ngIf="dataCurrency == 'USD'">${{ currency.sellPrice.data.amount}}</th>
+        <th *ngIf="dataCurrency == 'GBP'">&pound;{{ currency.sellPrice.data.amount}}</th>
+        <th *ngIf="dataCurrency == 'EUR'">&euro;{{ currency.sellPrice.data.amount}}</th>
+        <th *ngIf="dataCurrency != 'EUR' && dataCurrency != 'USD' && dataCurrency != 'GBP'">{{currency.sellPrice.data.amount}}</th>
+      </tr>
+      <tr>
+        <th>CURRENCY</th>
+        <th>{{ currency.sellPrice.data.currency}}</th>
+      </tr>
+      <tr *ngIf="name">
+        <th>Country</th>
+        <th>{{ name }}</th>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="allCurrency" class="container col-6 mt-5 rounded p-3 border bg-light">
+    <h3>Type Currency code (example: USD - US Dollars)</h3>
+    <div class="form-group">
+      <input (input)="find()" [(ngModel)]="nation" type="text" class="form-control" placeholder="Type currency code">
+      <p *ngFor="let data of show" (click)="findCurrency(data.id, data.name)" class="m-1">{{data.id}} - {{data.name}}</p>
+    </div>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
