@@ -3,8 +3,7 @@ const app = express();
 var path = require('path');
 
 var Client = require('coinbase').Client;
-var client = new Client({'apiKey': 'HlRodxXKK8ta4AlM',
-                         'apiSecret': 'vKV1GKtF9vJUJ7Kl6vlFXQOaKruH44ZY'});
+var client = new Client(require('./secret'));
 
 // const bodyParser = require('body-parser');
 // app.use(bodyParser.json());
